@@ -6,9 +6,9 @@ import { createServer } from "./server";
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   server: {
-    host: "0.0.0.0", // instead of "::"
+    host: "0.0.0.0", // allow external access
     port: 8080,
-    allowedHosts: true, // ✅ allow all hosts (good for ngrok & avoids TS error)
+    allowedHosts: true, // good for ngrok or LAN
     fs: {
       allow: ["./client", "./shared"],
       deny: [".env", ".env.*", "*.{crt,pem}", "**/.git/**", "server/**"],
@@ -16,10 +16,14 @@ export default defineConfig(({ mode }) => ({
   },
 
   build: {
-    outDir: "dist/spa",
+    outDir: "dist/spa", // client build output
   },
+
+  // ✅ Use relative paths so assets load on Netlify/Vercel
+  base: mode === "development" ? "/" : "./",
+
   plugins: [react(), expressPlugin()],
-  base: process.env.VERCEL ? "/" : (process.env.NODE_ENV === "development" ? "/" : "/JabezSelvan-Portfolio/"),
+
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./client"),
@@ -31,11 +35,9 @@ export default defineConfig(({ mode }) => ({
 function expressPlugin(): Plugin {
   return {
     name: "express-plugin",
-    apply: "serve", // Only apply during development (serve mode)
+    apply: "serve", // only during dev
     configureServer(server) {
       const app = createServer();
-
-      // Add Express app as middleware to Vite dev server
       server.middlewares.use(app);
     },
   };
