@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { FaGithub } from "react-icons/fa"; // keep your existing icon
 import { useInView } from "react-intersection-observer";
 import myImage from '../src/assets/Jabez.png';
+import PortfolioImg from '../src/assets/Portfolio.png';
 
 export default function App() {
 
@@ -293,15 +294,15 @@ export default function App() {
 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
   {[
     {
-      title: "Jabez Selvan Portfolio",
-      desc: "A full-stack e-commerce solution...",
-      stack: ["React", "Node.js", "PostgreSQL"],
-      gradient: "from-blue-100 to-blue-200",
-      color: "text-blue-600",
-      label: "Portfolio",
-      demoLink: "https://your-ecommerce-demo.com",
-      githubLink: "https://github.com/yourusername/ecommerce-platform",
-    },
+  title: "Jabez Selvan Portfolio",
+  desc: "Personal portfolio website showcasing my projects, skills, and work experience. Built with React and Tailwind CSS.",
+  stack: ["React", "Tailwind CSS"],
+  gradient: "from-blue-100 to-blue-200",
+  color: "text-blue-600",
+  demoLink: "https://jabezportfolio.netlify.app/",
+  githubLink: "https://github.com/JabezSelvan/Jabez-Portfolio",
+  image: PortfolioImg, // use this instead of label
+},
     {
       title: "Halfreel Website",
       desc: "A collaborative task management app...",
@@ -324,59 +325,69 @@ export default function App() {
     },
   ].map((proj, i) => (
     <div
-      key={i}
-      className={`bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 ${
-        workInView ? "animate-scaleFadeIn" : "opacity-0"
-      }`}
-      style={{
-        animationDelay: `${0.2 + i * 0.2}s`,
-        animationFillMode: "forwards",
-      }}
-    >
-      <div
-        className={`h-48 bg-gradient-to-br ${proj.gradient} flex items-center justify-center`}
-      >
+  key={i}
+  className={`bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 ${
+    workInView ? "animate-scaleFadeIn" : "opacity-0"
+  }`}
+  style={{
+    animationDelay: `${0.2 + i * 0.2}s`,
+    animationFillMode: "forwards",
+  }}
+>
+  {/* Image Section */}
+  <div className="h-48 flex items-center justify-center bg-gray-100 overflow-hidden">
+    {proj.image ? (
+      <img
+        src={proj.image}
+        alt={proj.title}
+        className="w-full h-full object-cover rounded-t-xl"
+      />
+    ) : (
+      <div className={`h-48 w-full flex items-center justify-center bg-gradient-to-br ${proj.gradient}`}>
         <div className={`${proj.color} text-4xl font-bold`}>
           {proj.label}
         </div>
       </div>
-      <div className="p-6">
-        <h3 className="text-xl font-semibold text-gray-900 mb-2">
-          {proj.title}
-        </h3>
-        <p className="text-gray-600 mb-4">{proj.desc}</p>
-        <div className="flex flex-wrap gap-2 mb-4">
-          {proj.stack.map((tech, idx) => (
-            <span
-              key={idx}
-              className="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded"
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
-        <div className="flex items-center gap-4 mt-2">
-          {/* Live Demo text link */}
-          <a
-            href={proj.demoLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-500 hover:underline"
-          >
-            Live Demo
-          </a>
-          {/* GitHub icon link */}
-          <a
-            href={proj.githubLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-700 hover:text-black text-xl"
-          >
-            <FaGithub />
-          </a>
-        </div>
-      </div>
+    )}
+  </div>
+
+  {/* Project Info */}
+  <div className="p-6">
+    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+      {proj.title}
+    </h3>
+    <p className="text-gray-600 mb-4">{proj.desc}</p>
+    <div className="flex flex-wrap gap-2 mb-4">
+      {proj.stack.map((tech, idx) => (
+        <span
+          key={idx}
+          className="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded"
+        >
+          {tech}
+        </span>
+      ))}
     </div>
+    <div className="flex items-center gap-4 mt-2">
+      <a
+        href={proj.demoLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-blue-500 hover:underline"
+      >
+        Live Demo
+      </a>
+      <a
+        href={proj.githubLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-gray-700 hover:text-black text-xl"
+      >
+        <FaGithub />
+      </a>
+    </div>
+  </div>
+</div>
+
   ))}
 </div>
   </div>

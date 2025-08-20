@@ -56,10 +56,15 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <a href="#" className="text-2xl font-bold text-gray-900 select-none">
-              Jabez <span className="text-brand-600">S.</span>
-            </a>
-          </div>
+  <a href="#">
+    <img 
+      src="/favicon.png" 
+      alt="Jabez S. Logo" 
+      className="h-10 w-auto rounded-lg" 
+    />
+  </a>
+</div>
+
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex ml-10 space-x-8 items-baseline">
