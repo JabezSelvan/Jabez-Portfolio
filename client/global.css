@@ -96,12 +96,20 @@
   }
 }
 
+.animate-fadeIn {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
 /* In your global CSS (e.g., index.css, globals.css) */
 ::selection {
   background-color: hsl(182, 84%, 37%); /* your brand-600 color */
   color: white; /* text color while selected */
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
 @layer base {
   * {
